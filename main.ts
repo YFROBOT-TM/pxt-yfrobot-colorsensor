@@ -16,10 +16,20 @@ enum RGB {
     //% block="绿"
     GREEN,
     //% block="蓝"
+    BLUE
+}
+
+enum RGB_RAW {
+    //% block="红"
+    RED,
+    //% block="绿"
+    GREEN,
+    //% block="蓝"
     BLUE,
     //% block="明光感应值"
     CLEAR
 }
+
 //% weight=6 color=#45b787 icon="\uf12e" block="颜色传感器"
 namespace TCS3472X {
     enum LCS_Constants {
@@ -108,6 +118,7 @@ namespace TCS3472X {
     }
 
     //% blockId="initialize_sensor" block="初始化颜色传感器"
+    //% weight=100
     export function LCS_initialize() {
         // Make sure we're connected to the right sensor.
         let chip_id = I2C_ReadReg8(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.ID))
@@ -189,33 +200,53 @@ namespace TCS3472X {
     // export function colorType(colorType:RGB): RGB{
     //     return colorType;
     // }
+    
+    //% blockId="getColorRawData" block="读取传感器原始值 %colorId"
+    //% weight=5
+    export function getColorRawData(color: RGB_RAW): number {
+        basic.pause((256 - LCS_integration_time_val) * 2.4);
+        let vue = 0;
+        switch (color) {
+            case RGB_RAW.RED:
+                vue = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL));
+                break;
+            case RGB_RAW.GREEN:
+                vue = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL));
+                break;
+            case RGB_RAW.BLUE:
+                vue = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.BDATAL));
+                break;
+            case RGB_RAW.CLEAR:
+                vue = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.CDATAL));
+                break;
+        }
+        return vue;
+    }
 
-    //% blockId="getSensorData" block="读取颜色值 %colorId"
+    //% blockId="getColorData" block="读取颜色值 %colorId"
+    //% weight=95
     export function getColorData(color: RGB): number {
         basic.pause((256 - LCS_integration_time_val) * 2.4);
         let sum = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.CDATAL));
+        
+        // Avoid divide by zero errors ... if clear = 0 return black
+        if(sum == 0){
+            return 0;
+        }
+
         let vue = 0;
         switch (color) {
             case RGB.RED:
                 vue = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL));
-
                 break;
             case RGB.GREEN:
                 vue = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL));
-
                 break;
             case RGB.BLUE:
                 vue = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.BDATAL));
-
                 break;
-            case RGB.CLEAR:
-                return sum;
-                break;
-
         }
         vue = Math.floor(vue / sum * 255);
-
-        // serial.writeLine("val: " + vue);
         return vue;
     }
 

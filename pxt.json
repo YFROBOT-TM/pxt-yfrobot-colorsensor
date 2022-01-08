@@ -1,0 +1,14 @@
+{
+    "name": "pxt-yfrobot-colorsensor",
+    "version": "0.0.1",
+    "description": "tcs34725",
+    "dependencies": {
+        "core": "*"        
+    },
+    "files": [
+        "README.md",
+        "main.ts"
+    ],
+    "public": true,
+    "license": "MIT"
+}

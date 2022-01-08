@@ -17,7 +17,7 @@ enum RGB {
     GREEN,
     //% block="蓝"
     BLUE,
-    //% block="全部"
+    //% block="明光感应值"
     CLEAR
 }
 //% weight=6 color=#45b787 icon="\uf12e" block="颜色传感器"

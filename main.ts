@@ -20,7 +20,7 @@ enum RGB {
     //% block="全部"
     CLEAR
 }
-//% weight=50 color=#45b787 icon="\uf12e" block="颜色传感器"
+//% weight=6 color=#45b787 icon="\uf12e" block="颜色传感器"
 namespace TCS34725_SENSOR {
     enum LCS_Constants {
         // Constants

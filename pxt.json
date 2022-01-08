@@ -1,7 +1,7 @@
 {
     "name": "pxt-yfrobot-colorsensor",
-    "version": "0.0.1",
-    "description": "tcs34725",
+    "version": "0.0.2",
+    "description": "YFROBOT color sensor",
     "dependencies": {
         "core": "*"        
     },

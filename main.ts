@@ -169,7 +169,7 @@ namespace TCS3472X {
          let g =  I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL));
          let b = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.BDATAL));
          
-         serial.writeLine("R:"+r + " G:" + g + " B:" + b);
+        //  serial.writeLine("R:"+r + " G:" + g + " B:" + b);
          
          let color = RGB.RED;
          let max = r;
@@ -182,7 +182,7 @@ namespace TCS3472X {
              color = RGB.BLUE;
          }
 
-        serial.writeLine("val: " + color);
+        // serial.writeLine("val: " + color);
         return color;
     }
     //% blockId="colorType" block="颜色值 %colorType"
@@ -215,7 +215,7 @@ namespace TCS3472X {
         }
         vue = Math.floor(vue / sum * 255);
 
-        serial.writeLine("val: " + vue);
+        // serial.writeLine("val: " + vue);
         return vue;
     }
 

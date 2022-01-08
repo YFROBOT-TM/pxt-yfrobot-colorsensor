@@ -112,7 +112,7 @@ namespace TCS34725_SENSOR {
         // Make sure we're connected to the right sensor.
         let chip_id = I2C_ReadReg8(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.ID))
 
-        if (chip_id != 0x44) {
+        if (chip_id != 0x44 && chip_id != 0x4D) {
             return // Incorrect chip ID
         }
 

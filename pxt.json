@@ -1,6 +1,6 @@
 {
     "name": "pxt-yfrobot-colorsensor",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "YFROBOT color sensor",
     "dependencies": {
         "core": "*"        
